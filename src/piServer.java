@@ -15,6 +15,7 @@ public class piServer extends Thread {
 	public void run() {
 		while (true) {
 			try {
+				//receive from sender, based on type of send on what it requires
 				System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
 				Socket server = serverSocket.accept();
 				System.out.println("Connected" + server.getRemoteSocketAddress());
@@ -62,7 +63,11 @@ public class piServer extends Thread {
 				if (type.equals("servo"))
 				{
 					String input1 = in.readUTF();
-					input.servo.addElement(input1);
+					String input2 = in.readUTF();
+					servoObject servo = new servoObject();
+					servo.type = input1;
+					servo.direction = input2;
+					input.servo.addElement(servo);
 				}
 				
 				DataOutputStream out = new DataOutputStream(server.getOutputStream());

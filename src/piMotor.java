@@ -49,6 +49,24 @@ public class piMotor {
     	backwardB.toggle();   	
     }
     
+    public void left() throws InterruptedException
+    {
+    	forwardB.toggle();
+    	
+    	Thread.sleep(1000);
+    	
+    	forwardB.toggle();
+    }
+    
+    public void right() throws InterruptedException
+    {
+    	forwardA.toggle();
+    	
+    	Thread.sleep(1000);
+    	
+    	forwardA.toggle();
+    }
+    
     
 
 

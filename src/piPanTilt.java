@@ -23,11 +23,25 @@ public class piPanTilt {
 	//1500 == 0°
 	//2000 == 90°
 	
-	public void pan(String direction) throws InterruptedException, IOException
+	public void servoMove(servoObject servo) throws InterruptedException, IOException
+	{
+		if (servo.type.equals("pan"))
+		{
+			pan(servo.direction);
+		}
+		
+		if (servo.type.equals("tilt"))
+		{
+			tilt(servo.direction);
+		}
+	}
+	
+	void pan(String direction) throws InterruptedException, IOException
 	{
 		if (direction.equals("right"))
 		{
 			panRight();
+			tiltUp();
 		}
 		
 		if (direction.equals("left"))
@@ -36,7 +50,7 @@ public class piPanTilt {
 		}
 	}
 	
-	public void tilt(String direction) throws InterruptedException, IOException
+	void tilt(String direction) throws InterruptedException, IOException
 	{
 		if (direction.equals("up"))
 		{
@@ -65,13 +79,13 @@ public class piPanTilt {
 	void tiltUp() throws InterruptedException, IOException
 	{
 		tiltPos = tiltPos-100;
-		writeToPanServo(tiltPos);
+		writeToTiltServo(tiltPos);
 	}
 	
 	void tiltDown() throws InterruptedException, IOException
 	{
 		tiltPos = tiltPos+100;
-		writeToPanServo(tiltPos);
+		writeToTiltServo(tiltPos);
 	}
 	
 	
@@ -99,7 +113,7 @@ public class piPanTilt {
 		final String servo = "/dev/servoblaster";
 		final File servoFile = new File(servo);
 		String toFile = Integer.toString(value);
-		String output = "7="+toFile+"us";
+		String output = "6="+toFile+"us";
 
 			try {
 				OutputStream out = new FileOutputStream(servoFile);

@@ -8,7 +8,7 @@ public class piInputHandler {
 	Vector <LEDObject> led = new Vector<LEDObject>();
 	Vector <String> speech = new Vector<String>();
 	Vector <String> direction = new Vector<String>();
-	Vector <String> servo = new Vector<String>();
+	Vector <servoObject> servo = new Vector<servoObject>();
 	piLEDEngine ledShow = new piLEDEngine();
 	LEDObject object = new LEDObject();
 	piMotor drive = new piMotor();
@@ -149,13 +149,12 @@ public class piInputHandler {
 	void servoHandler() throws InterruptedException, IOException
 	{
 		while (cont)
-		{
-		
+		{		
 			int pass = 0;
 		servo.trimToSize();
 		for (int i=0;i<servo.size();i++)
 		{
-			moveServo.pan("right");
+			moveServo.servoMove(servo.get(i));
 			pass++;			
 		}		
 		for (int i =0;i<pass;i++)
